@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -7,6 +9,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 // explicit
+// globlekey formstate เก็บค่า format ที่ทำไว้
+  final formKey = GlobalKey<FormState>();
+  String nameString, emailString, passwordString;
 
 // method
 
@@ -15,6 +20,11 @@ class _RegisterState extends State<Register> {
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
         print('Click Upload');
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          print(
+              'name = $nameString,Email = $emailString,Password =$passwordString');
+        }
       },
     );
   }
@@ -39,6 +49,14 @@ class _RegisterState extends State<Register> {
           color: Colors.blue[700],
         ),
       ),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Please Fill Name in Blank';
+        }
+      },
+      onSaved: (String value) {
+        nameString = value;
+      },
     );
   }
 
@@ -63,6 +81,13 @@ class _RegisterState extends State<Register> {
           color: Colors.green[700],
         ),
       ),
+      validator: (String value) {
+        if (!((value.contains('@')) && (value.contains('.'))))
+          return 'Email Format False';
+      },
+      onSaved: (String value) {
+        emailString = value;
+      },
     );
   }
 
@@ -86,6 +111,14 @@ class _RegisterState extends State<Register> {
           color: Colors.orange[700],
         ),
       ),
+      validator: (String value) {
+        if (value.length <= 5) {
+          return 'Password False';
+        }
+      },
+      onSaved: (String value) {
+        passwordString = value;
+      },
     );
   }
 
@@ -103,12 +136,15 @@ class _RegisterState extends State<Register> {
           alignment: Alignment.topCenter,
           child: Container(
             width: 250.0,
-            child: Column(
-              children: <Widget>[
-                nameText(),
-                emailText(),
-                passwordText(),
-              ],
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: <Widget>[
+                  nameText(),
+                  emailText(),
+                  passwordText(),
+                ],
+              ),
             ),
           ),
         ));
