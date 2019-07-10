@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "236214540284",
+    "firebase_url": "https://reetpa-aa498.firebaseio.com",
+    "project_id": "reetpa-aa498",
+    "storage_bucket": "reetpa-aa498.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236214540284:android:e6779bad32e293e9",
+        "android_client_info": {
+          "package_name": "th.or.tpa.ree_tpa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236214540284-er3p5vb615de0rgd8cdcdfpnpgg9adqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpMNiZ78KaXfrtVUODbC-1Z8bPqzj040U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236214540284-er3p5vb615de0rgd8cdcdfpnpgg9adqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
