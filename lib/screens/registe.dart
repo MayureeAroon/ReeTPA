@@ -13,7 +13,9 @@ class _RegisterState extends State<Register> {
   Widget uploadButton() {
     return IconButton(
       icon: Icon(Icons.cloud_upload),
-      onPressed: () {},
+      onPressed: () {
+        print('Click Upload');
+      },
     );
   }
 
