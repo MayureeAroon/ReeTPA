@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +14,44 @@ class _MyServiceState extends State<MyService> {
 // explicit
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  String nameString = '';
 
 // Method listview ใส่ข้อมูลเกินจอได้
+
+  Widget showTitleAppBar() {
+    return Container(
+      alignment: Alignment.topLeft,
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text('MyService'),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text(
+              'Login by $nameString',
+              style: TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    findName();
+  }
+
+  Future<void> findName() async {
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    setState(() {
+      nameString = firebaseUser.displayName;
+    });
+    print('name = $nameString');
+  }
 
   Future<void> signOutandExit() async {
     await firebaseAuth.signOut().then((reponse) {
@@ -75,7 +112,8 @@ class _MyServiceState extends State<MyService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Service'),
+        backgroundColor: Colors.pink[900],
+        title: showTitleAppBar(),
       ),
       body: Text('body'),
       drawer: myDawerMenu(),
