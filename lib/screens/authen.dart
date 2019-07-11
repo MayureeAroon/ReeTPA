@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ree_tpa/screens/my_service.dart';
 import 'package:ree_tpa/screens/registe.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -11,6 +13,27 @@ class _AuthenState extends State<Authen> {
 
 // method เอาคำสั่งมารวมกัน void type
 // widget เป็นถุงใส่ของได้หลายชิ้น
+
+  @override
+  void initState() {
+    super.initState();
+    checkStatus();
+  }
+
+  Future<void> checkStatus() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      moveToService();
+    }
+  }
+
+  void moveToService() {
+    var serviceRoute =
+        MaterialPageRoute(builder: (BuildContext context) => MyService());
+    Navigator.of(context)
+        .pushAndRemoveUntil(serviceRoute, (Route<dynamic> route) => false);
+  }
 
   Widget showLogo() {
     return Container(
@@ -79,7 +102,7 @@ class _AuthenState extends State<Authen> {
 // Create Route
         var registerRoute =
             MaterialPageRoute(builder: (BuildContext context) => Register());
-            Navigator.of(context).push(registerRoute);
+        Navigator.of(context).push(registerRoute);
       },
     );
   }

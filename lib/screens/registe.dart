@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ree_tpa/screens/my_service.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -37,12 +38,27 @@ class _RegisterState extends State<Register> {
             email: emailString, password: passwordString)
         .then((response) {
       print('Register Success');
+      setupDisplayName();
     }).catchError((response) {
       print('Error = ${response.toString()}');
 
       String title = response.code;
       String message = response.message;
       myAlert(title, message);
+    });
+  }
+
+  Future<void> setupDisplayName() async {
+    await firebaseAuth.currentUser().then((response) {
+      UserUpdateInfo userUpdateInfo = UserUpdateInfo();
+      userUpdateInfo.displayName = nameString;
+      response.updateProfile(userUpdateInfo);
+
+      // Move to Service
+      var myServiceRoute =
+          MaterialPageRoute(builder: (BuildContext context) => MyService());
+
+          Navigator.of(context).pushAndRemoveUntil(myServiceRoute, (Route<dynamic> route)=>false);
     });
   }
 
