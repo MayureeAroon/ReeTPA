@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,6 +61,21 @@ class _MyServiceState extends State<MyService> {
     });
   }
 
+  Future<void> readQRcode()async{
+
+    try {
+      String qrCodeString = await BarcodeScanner.scan();
+       print('QRcode ============================================> $qrCodeString');
+      if (qrCodeString.length != 0 ) {
+        print('QRcode ============================================> $qrCodeString');
+        
+      }
+      
+    } catch (e) {
+    }
+
+  }
+
   Widget showAppName() {
     return Text(
       'Ree TPA',
@@ -100,6 +116,7 @@ class _MyServiceState extends State<MyService> {
               style: TextStyle(fontSize: 18.0),
             ),onTap: (){
               print('Click QR code');
+              readQRcode();
             },
           ),
           ListTile(
