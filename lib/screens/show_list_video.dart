@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ree_tpa/models/ree_video_model.dart';
+import 'package:ree_tpa/screens/play_video.dart';
 
 class ShowListVideo extends StatefulWidget {
   @override
@@ -98,26 +99,39 @@ class _ShowListVideoState extends State<ShowListVideo> {
   @override
   Widget build(BuildContext context) {
     // return Text('Show ListVideo'); เปลี่ยนค่าการแสดง
-    return Container(
-      alignment: Alignment.topLeft,
-      child: ListView.builder(
-        itemCount: reeVideoModels.length,
-        itemBuilder: (context, int index) {
-          return Container(
-            // child: Text(reeVideoModels[index].name),
-            child: Column(
-              children: <Widget>[
-                Row(
+    return GestureDetector(
+      child: Container(
+        alignment: Alignment.topLeft,
+        child: ListView.builder(
+          itemCount: reeVideoModels.length,
+          itemBuilder: (context, int index) {
+            return GestureDetector(
+              child: Container(
+                // child: Text(reeVideoModels[index].name),
+                child: Column(
                   children: <Widget>[
-                    showImage(index),
-                    showText(index),
+                    Row(
+                      children: <Widget>[
+                        showImage(index),
+                        showText(index),
+                      ],
+                    ),
+                    myDivider(),
                   ],
                 ),
-                myDivider(),
-              ],
-            ),
-          );
-        },
+              ),
+              onTap: () {
+                print('index =$index');
+
+                var playRoute = MaterialPageRoute(
+                    builder: (BuildContext context) => PlayVideo(
+                          reeVideoModel: reeVideoModels[index],
+                        ));
+                Navigator.of(context).push(playRoute);
+              },
+            );
+          },
+        ),
       ),
     );
   }
